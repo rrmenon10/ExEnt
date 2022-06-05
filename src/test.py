@@ -6,7 +6,7 @@ import logging
 
 from src.eval.eval_model import multi_task_test_eval
 from src.data.Batcher import Batcher
-from src.ExEnt import ExEnt
+from src.utils.get_model import get_model
 
 from src.utils.Config import Config
 from src.utils.util import set_global_logging_level
@@ -40,7 +40,7 @@ def test(config):
         dataset_reader = batcher.get_dataset_reader()
         dict_test_dataset_reader[dataset] = dataset_reader
 
-    model = ExEnt(config, tokenizer, dict_test_dataset_reader).to(device)
+    model = get_model(config, tokenizer, dict_test_dataset_reader).to(device)
     model.load_state_dict(torch.load(os.path.join(config.exp_dir, "best_model.pt")))
     multi_task_test_eval(config, model, dict_test_batcher)
 

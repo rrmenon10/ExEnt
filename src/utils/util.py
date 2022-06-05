@@ -7,6 +7,7 @@ import numpy as np
 import logging
 import re
 import torch
+import torch.nn.functional as F
 
 global device; device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -99,3 +100,6 @@ def get_avg_dict_val_store(dict_val_store, num_batches=100):
         dict_avg_val[k] = float('%.3f' % (dict_val_store[k].detach().cpu().item() / num_batches))
 
     return dict_avg_val
+
+def l2_normalize(vec):
+    return F.normalize(vec, p=2, dim=-1)

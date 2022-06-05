@@ -1,0 +1,18 @@
+{
+    "name": "RobertaNoExp",
+    "model": "ZeroShotClassifier",
+    "pretrained_weight": "roberta-base",
+    "dataset": "synthetic_<96",
+    "test_dataset": "synthetic_>96",
+    "bench_type": "clues_syn",
+    "input_mode": "INPUT",
+    "max_text_length": 64,
+    "batch_size": 16,
+    "eval_batch_size": 16,
+    "num_batches": 2000,
+    "eval_every": 100,
+    "grad_accumulation_factor": 1,
+    "seed": 42,
+    "lr": 2e-5,
+    "weight_decay": 1e-2
+}

@@ -22,13 +22,13 @@ Setup environment by running `source bin/init.sh`. This will
 To train the model, run the following commands:
 ```
 bash bin/setup.sh
-bash bin/train.sh {benchmark_type}
+bash bin/train.sh {model_name} {benchmark_type}
 ```
-Here, `{benchmark_type}` refers to one of `'real'` or `'syn'` to train ExEnt on CLUES-Real and CLUES-Syn respectively.
+Here, `{model_name}` is one of `'ExEnt', 'RobertaNoExp, 'RobertaExpConcat'`. `{benchmark_type}` refers to one of `'real'` or `'syn'` to train on CLUES-Real and CLUES-Syn respectively.
 
-The output will be in the experiment directory `exp_out/{benchmark_type}/{timestamp}/`. Once the model has been trained, the following files can be found in the directory:
+The output will be in the experiment directory `exp_out/{model_name}/{benchmark_type}/{timestamp}/`. Once the model has been trained, the following files can be found in the directory:
 ```
-exp_out/{benchmark_type}/{timestamp}/
+exp_out/{model_name}/{benchmark_type}/{timestamp}/
     |
     |__ best_model.pt
     |__ dev_scores.json
@@ -42,9 +42,9 @@ exp_out/{benchmark_type}/{timestamp}/
 To evaluate the model on the test tasks, run the following command:
 ```
 bash bin/setup.sh
-bash bin/test.sh exp_out/{benchmark_type}/{timestamp}/
+bash bin/test.sh exp_out/{model_name}/{benchmark_type}/{timestamp}/
 ```
-The test scores for each task will be written in a dictionary under `exp_out/{benchmark_type}/{timestamp}/test_scores.json`.
+The test scores for each task will be written in a dictionary under `exp_out/{model_name}/{benchmark_type}/{timestamp}/test_scores.json`.
 
 ## Contact ##
 

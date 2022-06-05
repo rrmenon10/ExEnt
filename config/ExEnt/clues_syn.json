@@ -1,4 +1,6 @@
 {
+    "name": "ExEnt",
+    "model": "ExEnt",
     "pretrained_weight": "textattack/roberta-base-MNLI",
     "dataset": "synthetic_<96",
     "test_dataset": "synthetic_>96",

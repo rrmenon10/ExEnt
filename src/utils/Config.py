@@ -8,6 +8,8 @@ class Config(object):
     def __init__(self, filename=None, kwargs=None, mkdir=True):
 
         # Model configs
+        self.name = "ExEnt"
+        self.model = "ExEnt"
         self.bench_type = "clues_syn"
         self.dataset = "synthetic"
         self.test_dataset = None
@@ -56,7 +58,7 @@ class Config(object):
         '''
         Updates the config default values based on parameters passed in from config file
         '''
-        self.base_dir = os.path.join("exp_out", self.bench_type)
+        self.base_dir = os.path.join("exp_out", self.name, self.bench_type)
 
         if mkdir:
             self.exp_dir = make_exp_dir(self.base_dir)

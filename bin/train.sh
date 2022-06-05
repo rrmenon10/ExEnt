@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-benchmark_type=$1
-config="config/clues_${benchmark_type}.json"
+model_name=$1
+benchmark_type=$2
+config="config/${model_name}/clues_${benchmark_type}.json"
 python src/train.py -c ${config}

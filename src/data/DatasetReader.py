@@ -47,6 +47,10 @@ class DatasetReader(object):
         # Prepare for evaluation objective
         if "ENTAIL" in type:
             return self.dataset_reader.prepare_entail_batch(batch)
+        elif "CONCAT" in type:
+            return self.dataset_reader.prepare_concat_batch(batch)
+        elif "INPUT" in type:
+            return self.dataset_reader.prepare_input_batch(batch)
         else:
             raise ValueError("Invalid prepare_batch mode")
     

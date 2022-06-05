@@ -4,7 +4,7 @@ import torch
 import pandas as pd
 
 from src.utils.util import device
-from src.data.tokenize_txt import tokenize_txt
+from src.data.tokenize_txt import tokenize_txt, tokenize_concat_txt
 
 
 class SyntheticReader(object):
@@ -87,6 +87,58 @@ class SyntheticReader(object):
                 data.append(dict_input_output)
 
         return data
+    
+    def prepare_input_batch(self, batch):
+
+        list_lbls = batch["output"]["lbl"]
+        target_key = batch["output"]["target_key"][0]
+
+        list_input_ids = []
+        list_lbl = []
+
+        for b_idx, _ in enumerate(list_lbls):
+            
+            # First, table operations
+            table = self.get_features(batch, b_idx)
+            table_txt = f" {self.tokenizer.sep_token} ".join(table)
+            input_ids = tokenize_txt(self.tokenizer, self.config.max_text_length, table_txt)
+
+            list_input_ids.append(input_ids)
+        
+        # Tokenize lbls
+        list_lbl = [tokenize_txt(self.tokenizer, self.config.lbl_max_text_length, f"The {target_key} is {lbl}") \
+                                            for lbl in self.dict_lbl_2_idx.keys()]
+        return torch.tensor(list_input_ids).to(device), \
+                torch.tensor(list_lbl).to(device), \
+                torch.tensor(list_lbls).to(device)
+    
+    def prepare_concat_batch(self, batch):
+
+        explanations = batch["input"]["explanations"]
+
+        list_lbls = batch["output"]["lbl"]
+        target_key = batch["output"]["target_key"][0]
+
+        list_input_ids = []
+        list_lbl = []
+
+        explanations_txt = f" {self.tokenizer.sep_token} ".join(explanations[0])
+
+        for b_idx, _ in enumerate(list_lbls):
+            
+            # First, table operations
+            table = self.get_features(batch, b_idx)
+            table_txt = f" {self.tokenizer.sep_token} ".join(table)
+            input_ids = tokenize_concat_txt(self.tokenizer, self.config.max_text_length, table_txt, explanations_txt)
+
+            list_input_ids.append(input_ids)
+        
+        # Tokenize lbls
+        list_lbl = [tokenize_txt(self.tokenizer, self.config.lbl_max_text_length, f"The {target_key} is {lbl}") \
+                                            for lbl in self.dict_lbl_2_idx.keys()]
+        return torch.tensor(list_input_ids).to(device), \
+                torch.tensor(list_lbl).to(device), \
+                torch.tensor(list_lbls).to(device)
     
     def prepare_entail_batch(self, batch):
         # Prepares batch for ExEnt model

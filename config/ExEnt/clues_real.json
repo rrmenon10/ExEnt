@@ -1,0 +1,18 @@
+{
+    "name": "ExEnt",
+    "model": "ExEnt",
+    "pretrained_weight": "textattack/roberta-base-MNLI",
+    "dataset": ["uci/website-phishing", "uci/internet-firewall", "uci/mushroom", "uci/dry-bean", "uci/wine", "uci/caesarian-section", "uci/occupancy-detection", "uci/vertebral-column", "uci/student-performance", "uci/shill-bidding", "uci/mammographic-mass", "uci/teaching-assistant-evaluation", "uci/somerville-happiness", "kaggle/stroke-prediction", "kaggle/job-change", "kaggle/campus-placement", "kaggle/engineering-placement", "kaggle/water-potability", "wikipedia/color-luminance", "wikipedia/proteinogenic-acid"],
+    "test_dataset": ["uci/banknote-authentication","uci/tic-tac-toe-endgame","uci/car-evaluation", "uci/contraceptive-method-choice","uci/indian-liver-patient","kaggle/travel-insurance","kaggle/entrepreneur-competency", "wikipedia/award-nomination-result","wikipedia/coin-face-value","wikipedia/coin-metal","wikipedia/driving-championship-points","wikipedia/election-outcome","wikipedia/hotel-rating","wikipedia/manifold-orientability","wikipedia/soccer-club-region","wikipedia/soccer-league-type"],
+    "bench_type": "clues_real",
+    "input_mode": "ENTAIL",
+    "max_text_length": 128,
+    "batch_size": 2,
+    "eval_batch_size": 16,
+    "num_batches": 2000,
+    "eval_every": 100,
+    "grad_accumulation_factor": 8,
+    "seed": 42,
+    "lr": 1e-5,
+    "weight_decay": 1e-2
+}

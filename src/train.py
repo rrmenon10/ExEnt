@@ -7,10 +7,10 @@ from transformers import AutoTokenizer
 
 from src.eval.eval_model import multi_task_dev_eval
 from src.data.Batcher import Batcher
-from src.ExEnt import ExEnt
 
 from src.utils.Config import Config
 from src.utils.get_optimizer import get_optimizer
+from src.utils.get_model import get_model
 from src.utils.util import get_avg_dict_val_store, update_dict_val_store, ParseKwargs
 from src.utils.util import set_global_logging_level
 from src.utils.util import device
@@ -51,7 +51,7 @@ def train(config):
         dict_dataset_reader[dataset] = dataset_reader
 
     # Initialize model and optimizer
-    model = ExEnt(config, tokenizer, dict_dataset_reader).to(device)
+    model = get_model(config, tokenizer, dict_dataset_reader)
     optimizer = get_optimizer(model, config)
     
     best_dev_acc = 0
